@@ -10,7 +10,7 @@ public class DormAleatori extends Thread {
     @Override
     public void run(){
         for (int i = 0; i < 10; i ++){
-            long interAleatori = ((long) (Math.random() * 1000));
+            long interAleatori = ((long) (Math.random() * 1000)); //convertim double d mathRandom a long pq sleep demana long
             long totalConstruc = System.currentTimeMillis() - this.tempsConstruc;
             System.out.printf("%s (%d) a dormir %dms total %dms%n", getName(), i, interAleatori, totalConstruc);
             try {
@@ -28,7 +28,7 @@ public class DormAleatori extends Thread {
         DormAleatori person2 = new DormAleatori("Pep");
 
         // 2. S'inicien tots els fils
-        person1.start();
+        person1.start();  //executa run()
         person2.start();
 
         System.out.println("-- Fi de main -----------");
