@@ -16,7 +16,7 @@ public class Coet {
             for (int i = 0; i < 4; i++) {
                 motors[i].setPotencia(p);
                 if(p == 0) {
-                    motors[i].setEnces(false);
+                    motors[i].setEnces(false); // apaguem motors
                 }
             }
         } else {
@@ -26,17 +26,18 @@ public class Coet {
 
     public void arranca(){
         for (int i = 0; i < 4; i++) {
-                motors[i].setEnces(true);
+                motors[i].setEnces(true); //s'encenen els motors
                 motors[i].start();
             }
     }
 
     public static void main(String[] args) {
+        //creem els 4 fils
         Coet coet = new Coet();
+        //iniciem els fils
         coet.arranca();
 
-        Scanner sc = new Scanner(System.in);
-
+        Scanner sc = new Scanner(System.in); // per llegir inputs de teclat
         int p = sc.nextInt();
         System.out.printf("Passant a potència %d%n", p);
         while (p != 0) {

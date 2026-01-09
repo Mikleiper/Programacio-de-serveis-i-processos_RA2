@@ -14,7 +14,7 @@ public class Motor extends Thread {
 
     public Motor(int numero){
         super ("" + numero);  //el getName() de super necessita String
-        // els atributs pActual i objectiu son autoproclamats = 0)
+        // els atributs pActual i objectiu son autoproclamats = 0 i ences=false
     }
 
     @Override
@@ -45,7 +45,7 @@ public class Motor extends Thread {
                     System.out.printf("Motor %s: FerRes Objectiu: %d Actual: %d%n", getName(), pObjectiu, pActual);
                     enRepos = true;
                 }
-                try { //tb sleep per no imprimir masses cops a la consola
+                try { //tb sleep per no cremar CPU
                     Thread.sleep(10);
                 } catch (Exception e) {
                     e.printStackTrace();
