@@ -20,7 +20,7 @@ public class Esdeveniment {
         while (placesDisponibles < 1){
             try {
                 wait();
-            } catch (Exception e) {
+            } catch (InterruptedException e) {
                 
             }
         }
