@@ -2,7 +2,7 @@ import java.util.concurrent.locks.ReentrantLock;
 
 public class Forquilla {
     
-    private final ReentrantLock bloqueig = new ReentrantLock(true);
+    private final ReentrantLock bloqueig = new ReentrantLock(true); //reentrantlock en comptes de lock pq lock NO té el metode isHledByCUrrentTHread
     private int num;
     
     public Forquilla(int num){
@@ -22,5 +22,5 @@ public class Forquilla {
             bloqueig.unlock();
         }
     }
-
+    
 }
