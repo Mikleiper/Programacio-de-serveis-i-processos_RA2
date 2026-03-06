@@ -3,7 +3,7 @@ import java.util.Random;
 public class Filosof extends Thread{
     private long iniciGana;
     private long fiGana;
-    private long gana;
+    private int gana;
     private int nomComensal;
     private Forquilla forquillaDreta;
     private Forquilla forquillaEsquerra;
@@ -35,20 +35,22 @@ public class Filosof extends Thread{
     }
 
     public void calcularGana(){
-        this.gana = this.fiGana - this.iniciGana;
+        this.fiGana = (System.currentTimeMillis());
+        this.gana = (int) (this.fiGana - this.iniciGana) / 1000;
         System.out.printf("Fil%d menja amb gana %d%n", this.getComensal(), this.gana);
     }
 
-    public void resetGana(){
-        iniciGana = (System.currentTimeMillis());
+    public void resetGana(){        
+        this.iniciGana = (System.currentTimeMillis());
         this.gana = 0;
         System.out.printf("Fil%d ha acabat de menjar%n", this.nomComensal);
     }
 
     public void pensar(){
+        
         iniciGana = (System.currentTimeMillis());
         try {
-            this.sleep(1000,2000);
+            this.sleep(rnd.nextLong(1000, 2000));
         } catch (Exception e) {
         }
         System.out.printf("Fil%d pensant%n", this.nomComensal);
@@ -71,30 +73,25 @@ public class Filosof extends Thread{
     public void agafarForquilles(){ // no calen condiciosn if pq Lock ja comprova si està agafada o no
         agafarForquillaEsquerra();
         agafarForquillaDreta();
+        System.out.printf("Fil%d té forquilles esq(%d) dreta(%d)%n", this.nomComensal, this.getForquillaEsquerra().getNum(), this.getForquillaDreta().getNum() );
     }
 
     public void menjar(){
         agafarForquilles();
-        try {
-            this.sleep(1000,2000);
-        } catch (Exception e) {
-        }
         calcularGana();
-        resetGana();        
+        try {
+            this.sleep(rnd.nextLong(1000, 2000));
+        } catch (Exception e) {
+        }        
+        resetGana(); 
+        deixarForquilles();       
     }
 
     @Override
     public void run(){
         while (true) { 
-            if(rnd.nextBoolean()){
-                menjar();
-                deixarForquilles();
-            } else {
-                pensar();
-            }
+        pensar();
+        menjar();
         }
     }
-
-
-
 }

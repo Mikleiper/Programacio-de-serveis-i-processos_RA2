@@ -29,7 +29,8 @@ public class Taula {
             f.getComensal(),
             f.getForquillaEsquerra().getNum(), 
             f.getForquillaDreta().getNum());
-        }        
+        }
+        System.out.println("-----------------------");        
     }
 
     public void cridarATaula(){
