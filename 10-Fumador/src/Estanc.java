@@ -3,13 +3,14 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
-public class Estanc {
+public class Estanc extends Thread {
     
-    Random rnd = new Random();
+    private Random rnd = new Random();
 
     private List <Tabac> tabacs ;
     private List <Paper> papers ;
     private List <Llumi> llumins ;
+    private boolean obert = true;
     
     public Estanc() {
         tabacs = new ArrayList<>();
@@ -79,74 +80,24 @@ public class Estanc {
         return llumins.remove(0);
     }
 
-    public void tancarEstanc(){
-        System.out.println("Estanc tancat");
-        this.interrupt();
-    }
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    /*List <Tabac> tabacs = new ArrayList<>();
-    List <Paper> papers = new ArrayList<>();
-    List <Llumi> llumins = new ArrayList<>();
-
-    public Estanc() {
-        System.out.println("Estanc obert");
-    }
-
-    public synchronized void nouSubministrament() {
-        int producte = (int) (Math.random() * 3);
-        switch (producte) {
-            case 0:
-                tabacs.add(new Tabac());
-                System.out.println("Afegit Tabac");
-                break;
-            case 1:
-                papers.add(new Paper());
-                System.out.println("Afegit Paper");
-                break;
-            case 2:
-                llumins.add(new Llumi());
-                System.out.println("Afegit Llumi");
-                break;
+    public void tancarEstanc() {
+        obert = false;
+        synchronized (this) {
+            notifyAll();
         }
-        notifyAll();
+        System.out.println("Estanc tancat");
     }
-
-    public synchronized void comprarTabac() throws InterruptedException {
-        while (tabacs.isEmpty()) wait();
-        tabacs.remove(0);
-    }
-
-    public synchronized void comprarPaper() throws InterruptedException {
-        while (papers.isEmpty()) wait();
-        papers.remove(0);
-    }
-
-    public synchronized void comprarLlumi() throws InterruptedException {
-        while (llumins.isEmpty()) wait();
-        llumins.remove(0);
-    }*/
-
+    
+    @Override
+    public void run(){
+        System.out.println("Estanc obert");
+        while(obert){
+            nouSubministrament();
+            try {
+                Thread.sleep(rnd.nextLong(500, 1501));
+            } catch (InterruptedException e) {
+            }
+        }
+        this.interrupt();        
+    }       
 }
