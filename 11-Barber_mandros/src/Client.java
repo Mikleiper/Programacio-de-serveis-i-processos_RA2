@@ -12,5 +12,6 @@ public class Client {
         return nom;
     }
 
-    public void tallarseCabell(){}
+    public void tallarseCabell(){
+    }
 }
